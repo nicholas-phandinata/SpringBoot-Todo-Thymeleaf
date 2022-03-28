@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <meta charset="utf-8" />
 <title>Todo List</title>
 </head>
 <body>
-	<div align="center">
+	<div class="container mt-5">
 		<h1>Todo List</h1>
-		<a href="/add-todo">Create New Todo</a> <br />
-		<br />
-		<table border="1" cellpadding="10">
+		<a href="/add-todo">Create New Todo</a> <br /> <br />
+		<table class="table table-sm table-condensed table-striped">
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -18,8 +18,8 @@
 					<th>Description</th>
 					<th>Target Date</th>
 					<th>Star Meter</th>
-					<th>&nbsp;</th>
-					<th>&nbsp;</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,11 +29,16 @@
 					<td th:text="${todo.description}"></td>
 					<td th:text="${todo.targetDate}"></td>
 					<td th:text="${todo.starMeter}"></td>
-					<td><a th:href="@{'/edit/' + ${todo.id}}">Edit</a></td>
-					<td><a th:href="@{'/delete/' + ${todo.id}}">Delete</a></td>
+					<td><a th:href="@{'/edit/' + ${todo.id}}"
+						class="btn btn-info btn-sm">Edit</a></td>
+					<td><a th:href="@{'/delete/' + ${todo.id}}"
+						class="btn btn-danger btn-sm">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	<script src="@{/js/jquery-3.2.1.slim.min.js}"></script>
+	<script src="@{/js/popper.min.js}"></script>
+	<script src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
