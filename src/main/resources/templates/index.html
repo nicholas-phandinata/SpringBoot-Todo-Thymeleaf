@@ -29,9 +29,8 @@
 					<td th:text="${todo.description}"></td>
 					<td th:text="${todo.targetDate}"></td>
 					<td th:text="${todo.starMeter}"></td>
-					<td><a th:href="@{'/edit/' + ${todo.id}}">Edit</a>
-						&nbsp;&nbsp;&nbsp; <a th:href="@{'/delete/' + ${todo.id}}">Delete</a>
-					</td>
+					<td><a th:href="@{'/edit/' + ${todo.id}}">Edit</a></td>
+					<td><a th:href="@{'/delete/' + ${todo.id}}">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>
