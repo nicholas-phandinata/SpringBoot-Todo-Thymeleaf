@@ -17,6 +17,11 @@ public class TodoController {
 	@Autowired
 	TodoService todoService;
 	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
 	@GetMapping("/")
 	public String listAll(Model model) {
 		model.addAttribute("todos", todoService.listAll());

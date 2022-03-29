@@ -40,6 +40,10 @@ public class User {
 	inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	
 	private Collection<Role> role;
+	
+	public User() {
+		
+	}
 
 	public User(String firstname, String lastname, String username, String password, Collection<Role> role) {
 		super();
