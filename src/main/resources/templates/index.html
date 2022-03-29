@@ -64,7 +64,10 @@
 		<h2>
 			Welcome <span sec:authentication="principal.username"> User</span>
 		</h2>
-		<a href="/add-todo">Create New Todo</a> <br /> <br />
+		<a href="/add-todo">Create New Todo</a>
+		&nbsp;|&nbsp;
+		<a th:href="@{/export}">Export data to PDF</a>
+		<br /> <br />
 		<table class="table table-sm table-condensed table-striped">
 			<thead>
 				<tr>
