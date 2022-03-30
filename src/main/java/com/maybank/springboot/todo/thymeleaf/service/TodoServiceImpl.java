@@ -48,7 +48,7 @@ public class TodoServiceImpl implements TodoService{
 	@Override
 	public Page<Todo> pageListAll(int pageNumber) {
 		// TODO Auto-generated method stub
-		Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+		Pageable pageable = PageRequest.of(pageNumber - 1, 6);
 		return repo.findAll(pageable);
 	}
 

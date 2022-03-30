@@ -64,7 +64,7 @@
 		<h2>
 			Welcome <span sec:authentication="principal.username"> User</span>
 		</h2>
-<!-- 		<form th:action="@{/}">
+		<!-- 		<form th:action="@{/}">
 			Filter: <input type="text" name="keyword" id="keyword" size="50"
 				th:value="${keyword}" required /> &nbsp; <input type="submit"
 				value="Search" /> &nbsp; <input type="button" value="Clear"
@@ -75,8 +75,8 @@
 				placeholder="Search here" aria-label="Search" size="30"
 				name="keyword" id="keyword" th:value="${keyword}" autofocus=""
 				onfocus="this.setSelectionRange(this.value.length,this.value.length);">
-				<input type="button" value="Clear"
-				id="btnClear" onclick="clearSearch()" />
+			<input type="button" value="Clear" id="btnClear"
+				onclick="clearSearch()" />
 		</form>
 		<a href="/add-todo">Create New Todo</a> &nbsp;|&nbsp; <a
 			th:href="@{/export}">Export data to PDF</a> <br /> <br />
@@ -136,15 +136,21 @@
 			</tbody>
 		</table>
 	</div>
-	      <div class="row" th:if ='${pageDisplay}'>
-            <div class="col text-center">
-            Total Items: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]] -
-            &nbsp;
-            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-            <a th:href="@{'/page/' + ${i}}">[[${i}]]</a> &nbsp; &nbsp;
-            </span>
-            </div>
-      </div>
+	<div class="row" th:if='${pageDisplay}'>
+		<div class="col text-center">
+			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{/page/1}">First</a> 
+			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage - 1}}">&laquo;</a> 
+
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}"> 
+             <a th:if="${i != currentPage}" class="btn btn-outline-info btn-sm mt-3"
+				th:href="@{'/page/' + ${i}}">[[${i}]]</a> 
+			<span th:unless="${i != currentPage}" class="btn btn-info btn-sm mt-3">[[${i}]]</span>
+			</span>
+			
+			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage + 1}}">&raquo;</a>
+			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${totalPages}}">Last</a> 
+		</div>
+	</div>
 	<script type="text/javascript">
     function clearSearch() {
         window.location = "[[@{/}]]";
