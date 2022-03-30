@@ -83,11 +83,36 @@
 		<table class="table table-sm table-condensed table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>User</th>
-					<th>Description</th>
-					<th>Target Date</th>
-					<th>Star Meter</th>
+					<th>
+					<a th:if='${pageDisplay}' th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+					ID
+					</a>
+					<span th:unless='${pageDisplay}'>ID</span>
+					</th>
+					<th>
+					<a th:if='${pageDisplay}' th:href="@{'/page/' + ${currentPage} + '?sortField=user&sortDir=' + ${reverseSortDir}}">
+					User
+					</a>
+					<span th:unless='${pageDisplay}'>User</span>
+					</th>
+					<th>
+					<a th:if='${pageDisplay}' th:href="@{'/page/' + ${currentPage} + '?sortField=description&sortDir=' + ${reverseSortDir}}">
+					Description
+					</a>
+					<span th:unless='${pageDisplay}'>Description</span>
+					</th>
+					<th>
+					<a th:if='${pageDisplay}' th:href="@{'/page/' + ${currentPage} + '?sortField=targetDate&sortDir=' + ${reverseSortDir}}">
+					Target Date
+					</a>
+					<span th:unless='${pageDisplay}'>Target Date</span>
+					</th>
+					<th>
+					<a th:if='${pageDisplay}' th:href="@{'/page/' + ${currentPage} + '?sortField=starMeter&sortDir=' + ${reverseSortDir}}">
+					Star Meter
+					</a>
+					<span th:unless='${pageDisplay}'>Star Meter</span>
+					</th>
 					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
@@ -138,17 +163,17 @@
 	</div>
 	<div class="row" th:if='${pageDisplay}'>
 		<div class="col text-center">
-			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{/page/1}">First</a> 
-			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage - 1}}">&laquo;</a> 
+			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a> 
+			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a> 
 
             <span th:each="i: ${#numbers.sequence(1, totalPages)}"> 
              <a th:if="${i != currentPage}" class="btn btn-outline-info btn-sm mt-3"
-				th:href="@{'/page/' + ${i}}">[[${i}]]</a> 
+				th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a> 
 			<span th:unless="${i != currentPage}" class="btn btn-info btn-sm mt-3">[[${i}]]</span>
 			</span>
 			
-			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage + 1}}">&raquo;</a>
-			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${totalPages}}">Last</a> 
+			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
+			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a> 
 		</div>
 	</div>
 	<script type="text/javascript">

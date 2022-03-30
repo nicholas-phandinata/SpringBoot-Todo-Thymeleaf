@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.maybank.springboot.todo.thymeleaf.model.Todo;
@@ -46,9 +47,11 @@ public class TodoServiceImpl implements TodoService{
 		return repo.findAll();
 	}
 	@Override
-	public Page<Todo> pageListAll(int pageNumber) {
+	public Page<Todo> pageListAll(int pageNumber, String sortField, String sortDir) {
 		// TODO Auto-generated method stub
-		Pageable pageable = PageRequest.of(pageNumber - 1, 6);
+		Sort sort = Sort.by(sortField);
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+		Pageable pageable = PageRequest.of(pageNumber - 1, 6, sort);
 		return repo.findAll(pageable);
 	}
 

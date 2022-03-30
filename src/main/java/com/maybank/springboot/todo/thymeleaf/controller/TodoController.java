@@ -36,14 +36,16 @@ public class TodoController {
 	
 	@RequestMapping("/")
 	public String listAll(Model model, @Param("keyword") String keyword) {
-		return listByPage(model, keyword, 1);
+		return listByPage(model, keyword, 1, "id", "asc");
 	}
 	
 	@GetMapping("/page/{pageNumber}")
 	public String listByPage(Model model, @Param("keyword") String keyword, 
-			@PathVariable("pageNumber") int currentPage) {
+			@PathVariable("pageNumber") int currentPage,
+			@Param("sortField") String sortField,
+			@Param("sortDir") String sortDir) {
 		if(keyword == null || keyword == "") {
-			Page<Todo> page = todoService.pageListAll(currentPage);
+			Page<Todo> page = todoService.pageListAll(currentPage, sortField, sortDir);
 			long totalItems = page.getTotalElements();
 			int totalPages = page.getTotalPages();
 			
@@ -51,7 +53,12 @@ public class TodoController {
 			model.addAttribute("totalItems", totalItems);
 			model.addAttribute("totalPages", totalPages);
 			model.addAttribute("todos", page.getContent());
+			model.addAttribute("sortField", sortField);
+			model.addAttribute("sortDir", sortDir);
 			model.addAttribute("pageDisplay", "yes");
+			
+			String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+			model.addAttribute("reverseSortDir", reverseSortDir);
 		}else {
 			model.addAttribute("todos", todoService.search(keyword));
 			model.addAttribute("keyword", keyword);
