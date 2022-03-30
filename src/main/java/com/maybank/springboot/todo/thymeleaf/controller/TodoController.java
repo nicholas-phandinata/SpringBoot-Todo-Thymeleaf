@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,8 +36,26 @@ public class TodoController {
 	
 	@RequestMapping("/")
 	public String listAll(Model model, @Param("keyword") String keyword) {
-		model.addAttribute("todos", todoService.search(keyword));
-		model.addAttribute("keyword", keyword);
+		return listByPage(model, keyword, 1);
+	}
+	
+	@GetMapping("/page/{pageNumber}")
+	public String listByPage(Model model, @Param("keyword") String keyword, 
+			@PathVariable("pageNumber") int currentPage) {
+		if(keyword == null || keyword == "") {
+			Page<Todo> page = todoService.pageListAll(currentPage);
+			long totalItems = page.getTotalElements();
+			int totalPages = page.getTotalPages();
+			
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("totalItems", totalItems);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("todos", page.getContent());
+			model.addAttribute("pageDisplay", "yes");
+		}else {
+			model.addAttribute("todos", todoService.search(keyword));
+			model.addAttribute("keyword", keyword);
+		}
 		return "index";
 	}
 	

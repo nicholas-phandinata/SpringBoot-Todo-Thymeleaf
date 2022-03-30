@@ -136,6 +136,15 @@
 			</tbody>
 		</table>
 	</div>
+	      <div class="row" th:if ='${pageDisplay}'>
+            <div class="col text-center">
+            Total Items: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]] -
+            &nbsp;
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <a th:href="@{'/page/' + ${i}}">[[${i}]]</a> &nbsp; &nbsp;
+            </span>
+            </div>
+      </div>
 	<script type="text/javascript">
     function clearSearch() {
         window.location = "[[@{/}]]";
