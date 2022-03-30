@@ -64,10 +64,22 @@
 		<h2>
 			Welcome <span sec:authentication="principal.username"> User</span>
 		</h2>
-		<a href="/add-todo">Create New Todo</a>
-		&nbsp;|&nbsp;
-		<a th:href="@{/export}">Export data to PDF</a>
-		<br /> <br />
+<!-- 		<form th:action="@{/}">
+			Filter: <input type="text" name="keyword" id="keyword" size="50"
+				th:value="${keyword}" required /> &nbsp; <input type="submit"
+				value="Search" /> &nbsp; <input type="button" value="Clear"
+				id="btnClear" onclick="clearSearch()" />
+		</form> -->
+		<form class="form-inline my-2 my-lg-0" th:action="@{/}" id="sch">
+			<input class="form-control mr-sm-2" type="text"
+				placeholder="Search here" aria-label="Search" size="30"
+				name="keyword" id="keyword" th:value="${keyword}" autofocus=""
+				onfocus="this.setSelectionRange(this.value.length,this.value.length);">
+				<input type="button" value="Clear"
+				id="btnClear" onclick="clearSearch()" />
+		</form>
+		<a href="/add-todo">Create New Todo</a> &nbsp;|&nbsp; <a
+			th:href="@{/export}">Export data to PDF</a> <br /> <br />
 		<table class="table table-sm table-condensed table-striped">
 			<thead>
 				<tr>
@@ -124,5 +136,18 @@
 			</tbody>
 		</table>
 	</div>
+	<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/}]]";
+    }
+</script>
+	<script type="text/javascript">
+            var searchInput = document.getElementById("keyword")
+            searchInput.oninput = function(){
+            // put your logic for search filter here
+            // alert(searchInput.value)
+            document.getElementById('sch').submit();
+            }
+        </script>
 </body>
 </html>

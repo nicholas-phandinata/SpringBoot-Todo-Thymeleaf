@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +33,10 @@ public class TodoController {
 		return "login";
 	}
 	
-	@GetMapping("/")
-	public String listAll(Model model) {
-		model.addAttribute("todos", todoService.listAll());
+	@RequestMapping("/")
+	public String listAll(Model model, @Param("keyword") String keyword) {
+		model.addAttribute("todos", todoService.search(keyword));
+		model.addAttribute("keyword", keyword);
 		return "index";
 	}
 	

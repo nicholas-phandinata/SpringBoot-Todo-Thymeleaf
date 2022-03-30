@@ -34,5 +34,13 @@ public class TodoServiceImpl implements TodoService{
 		repo.deleteById(id);
 		return "Todo Deleted Successfully!";
 	}
+	@Override
+	public List<Todo> search(String keyword) {
+		// TODO Auto-generated method stub
+		if(keyword != null) {
+			return repo.search(keyword);
+		}
+		return repo.findAll();
+	}
 
 }
