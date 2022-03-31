@@ -51,7 +51,13 @@ public class TodoServiceImpl implements TodoService{
 		// TODO Auto-generated method stub
 		Sort sort = Sort.by(sortField);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-		Pageable pageable = PageRequest.of(pageNumber - 1, 6, sort);
+		Pageable pageable = PageRequest.of(pageNumber - 1, 10, sort);
+		return repo.findAll(pageable);
+	}
+	@Override
+	public Page<Todo> pageCardView(int pageNumber) {
+		// TODO Auto-generated method stub
+		Pageable pageable = PageRequest.of(pageNumber - 1, 8);
 		return repo.findAll(pageable);
 	}
 

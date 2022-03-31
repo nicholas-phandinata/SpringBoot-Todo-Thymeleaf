@@ -110,5 +110,23 @@ public class TodoController {
         exporter.export(response);
          
     }
+    
+	@RequestMapping("/cardview")
+	public String listCard(Model model) {
+		return cardView(model, 1);
+	}
+    
+    @GetMapping("/cardview/page/{pageNumber}")
+    public String cardView(Model model,
+    		@PathVariable("pageNumber") int currentPage) {
+    	Page<Todo> page = todoService.pageCardView(currentPage);
+		long totalItems = page.getTotalElements();
+		int totalPages = page.getTotalPages();
+    	model.addAttribute("todos", page.getContent());
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalItems", totalItems);
+		model.addAttribute("totalPages", totalPages);
+    	return "cardView";
+    }
 	
 }

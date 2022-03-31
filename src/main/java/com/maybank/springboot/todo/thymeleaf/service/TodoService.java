@@ -18,4 +18,6 @@ public interface TodoService {
 	String deleteTodo(int id);
 	
 	Page<Todo> pageListAll(int pageNumber, String sortField, String sortDir);
+	
+	Page<Todo> pageCardView(int pageNumber);
 }

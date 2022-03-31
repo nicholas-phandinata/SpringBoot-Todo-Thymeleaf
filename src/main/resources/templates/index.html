@@ -24,21 +24,17 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link" href="#">Home
+					<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Brands</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Categories</a>
-					</li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
 						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> Dropdown link </a>
+						aria-haspopup="true" aria-expanded="false"> View </a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Action</a> <a
-								class="dropdown-item" href="#">Another action</a> <a
-								class="dropdown-item" href="#">Something else here</a>
+							<a class="dropdown-item" th:href="@{/}">List View</a> <a
+								class="dropdown-item" th:href="@{/cardview}">Card View</a> 
 						</div></li>
 				</ul>
 			</div>
@@ -60,26 +56,36 @@
 		</nav>
 	</div>
 	<div class="container mt-7">
-		<h1>Todo List</h1>
-		<h2>
-			Welcome <span sec:authentication="principal.username"> User</span>
-		</h2>
+		<br>
+		<h2>Todo List Manager</h2>
+		<br>
+		<h1>
+			Welcome <span sec:authentication="principal.username"> User</span>!
+		</h1>
+		<br>
 		<!-- 		<form th:action="@{/}">
 			Filter: <input type="text" name="keyword" id="keyword" size="50"
 				th:value="${keyword}" required /> &nbsp; <input type="submit"
 				value="Search" /> &nbsp; <input type="button" value="Clear"
 				id="btnClear" onclick="clearSearch()" />
 		</form> -->
+		<div class="float-right">
 		<form class="form-inline my-2 my-lg-0" th:action="@{/}" id="sch">
 			<input class="form-control mr-sm-2" type="text"
 				placeholder="Search here" aria-label="Search" size="30"
 				name="keyword" id="keyword" th:value="${keyword}" autofocus=""
 				onfocus="this.setSelectionRange(this.value.length,this.value.length);">
-			<input type="button" value="Clear" id="btnClear"
+			<input class="btn btn-dark" type="button" value="Clear" id="btnClear"
 				onclick="clearSearch()" />
 		</form>
-		<a href="/add-todo">Create New Todo</a> &nbsp;|&nbsp; <a
-			th:href="@{/export}">Export data to PDF</a> <br /> <br />
+		<br>
+		<span class="float-right">
+		<a href="/add-todo">Create New Todo</a> &nbsp;|&nbsp; 
+		<a th:href="@{/export}">Export data to PDF</a> 
+		</span>
+		<br><br>
+		</div>
+		
 		<table class="table table-sm table-condensed table-striped">
 			<thead>
 				<tr>
@@ -166,11 +172,47 @@
 			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a> 
 			<a th:if="${currentPage > 1}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&laquo;</a> 
 
+			<th:block th:if="${totalPages <= 7}">
             <span th:each="i: ${#numbers.sequence(1, totalPages)}"> 
              <a th:if="${i != currentPage}" class="btn btn-outline-info btn-sm mt-3"
 				th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a> 
 			<span th:unless="${i != currentPage}" class="btn btn-info btn-sm mt-3">[[${i}]]</span>
 			</span>
+			</th:block>
+			
+			<th:block th:if="${totalPages > 7}">
+				<th:block th:if="${currentPage <= 3 || currentPage >= totalPages - 2}">
+				   <span th:each="i: ${#numbers.sequence(1, 3)}"> 
+                   <a th:if="${i != currentPage}" class="btn btn-outline-info btn-sm mt-3"
+				    th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a> 
+			       <span th:unless="${i != currentPage}" class="btn btn-info btn-sm mt-3">[[${i}]]</span>
+			       </span>
+			       
+			       <a class="btn btn-outline-info btn-sm mt-3"
+				    th:href="@{'/page/4' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">...</a>
+				    
+				   <span th:each="i: ${#numbers.sequence(totalPages - 2, totalPages)}"> 
+                   <a th:if="${i != currentPage}" class="btn btn-outline-info btn-sm mt-3"
+				    th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a> 
+			       <span th:unless="${i != currentPage}" class="btn btn-info btn-sm mt-3">[[${i}]]</span>
+			       </span>
+				</th:block>
+				
+				<th:block th:if="${currentPage > 3 && currentPage < totalPages - 2}">
+				    <a class="btn btn-outline-info btn-sm mt-3"
+				    th:href="@{'/page/' + ${currentPage - 3} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">...</a>
+				    
+				   <span th:each="i: ${#numbers.sequence(currentPage - 2, currentPage + 2)}"> 
+                   <a th:if="${i != currentPage}" class="btn btn-outline-info btn-sm mt-3"
+				    th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a> 
+			       <span th:unless="${i != currentPage}" class="btn btn-info btn-sm mt-3">[[${i}]]</span>
+			       </span>
+				    
+				    <a class="btn btn-outline-info btn-sm mt-3"
+				    th:href="@{'/page/' + ${currentPage + 3} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">...</a>
+				</th:block>
+				
+			</th:block>
 			
 			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">&raquo;</a>
 			<a th:if="${currentPage < totalPages}" class="btn btn-info btn-sm mt-3" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a> 
