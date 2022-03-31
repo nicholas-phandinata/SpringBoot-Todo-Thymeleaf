@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
 <title>Edit Todo</title>
+<link rel="stylesheet" th:href="@{/css/particle.css}">
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
-<body>
-<div class="container" style="background-color: rgba(255, 255, 255, .15); backdrop-filter: blur(5px); height: 660px; width: 800px; position: fixed; top: 20%; left: 28%;">
-    <div align="center">
-        <h1>Edit Todo</h1>
-        <br />
-        <form action="#" th:action="@{/save}" th:object="${todo}"
-            method="post">
- 
-            <table border="0" cellpadding="10">
-                <tr>             
-                    <td>Todo ID:</td>
-                    <td>
-                        <input type="text" th:field="*{id}" readonly="readonly" />
-                    </td>
-                </tr>        
-                <tr>             
-                    <td>User Name:</td>
-                    <td>
-                        <input type="text" th:field="*{user}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Description:</td>
-                    <td><input type="text" th:field="*{description}" /></td>
-                </tr>
-                <tr>
-                    <td>Target Date:</td>
-                    <td><input type="text" th:field="*{targetDate}" /></td>
-                </tr>
-                <tr>
-                    <td>Star Meter:</td>
-                    <td><input type="text" th:field="*{starMeter}" /></td>
-                </tr>                            
-                <tr>
-                    <td colspan="2"><button type="submit">Save</button> </td>
-                </tr>
-            </table>
-        </form>
-    </div>
- </div>
+<body style="background-color: #bcbcbc;">
+	<div id="particle-container">
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="particle"></div>
+		<div class="container"
+			style="background-color: rgba(255, 255, 255, .15); backdrop-filter: blur(2px); height: 500px; width: 560px; position: fixed; top: 20%; left: 34%;">
+			<div align="center">
+				<br>
+				<h1>Edit Todo</h1>
+				<br />
+				<form action="#" th:action="@{/save}" th:object="${todo}"
+					method="post">
+
+					<table cellpadding="10">
+						<tr>
+							<td>Todo ID:</td>
+							<td><input type="text" th:field="*{id}" readonly="readonly"
+								size="3" style="background-color: #dddfdd; border: 0;" /></td>
+						</tr>
+						<tr>
+							<td>User Name:</td>
+							<td><input type="text" th:field="*{user}" size="30" autofocus onfocus="this.setSelectionRange(this.value.length,this.value.length);"/></td>
+						</tr>
+						<tr>
+							<td>Description:</td>
+							<td><input type="text" th:field="*{description}" size="30" /></td>
+						</tr>
+						<tr>
+							<td>Target Date:</td>
+							<td><input type="text" th:field="*{targetDate}" size="10" /></td>
+						</tr>
+						<tr>
+							<td>Star Meter:</td>
+							<td><input type="text" th:field="*{starMeter}" size="2" /></td>
+						</tr>
+					</table>
+					<br>
+					<div class="float-center">
+						<a th:href="@{/}" type="button" class="btn btn-warning btn-sm"
+							style="width: 180px;">Cancel</a>&nbsp;&nbsp;&nbsp;
+						<button type="submit" class="btn btn-info btn-sm"
+							style="width: 180px;">Save</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
