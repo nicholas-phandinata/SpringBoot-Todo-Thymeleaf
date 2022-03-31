@@ -56,12 +56,14 @@ public class TodoController {
 			model.addAttribute("sortField", sortField);
 			model.addAttribute("sortDir", sortDir);
 			model.addAttribute("pageDisplay", "yes");
+			model.addAttribute("todo", new Todo());
 			
 			String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 			model.addAttribute("reverseSortDir", reverseSortDir);
 		}else {
 			model.addAttribute("todos", todoService.search(keyword));
 			model.addAttribute("keyword", keyword);
+			model.addAttribute("todo", new Todo());
 		}
 		return "index";
 	}

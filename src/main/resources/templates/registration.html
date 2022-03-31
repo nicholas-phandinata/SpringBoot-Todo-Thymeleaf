@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Registration</title>
+<link rel="stylesheet" th:href="@{/css/gradient.css}">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,15 +13,9 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">Registration and
-					Login Module</a>
+				<a class="navbar-brand" href="#" th:href="@{/}">
+				Todo Login Page
+				</a>
 			</div>
 		</div>
 	</nav>
@@ -27,17 +23,17 @@
 <br>
 <br>
 	<!-- Create HTML registration form -->
-	<div class="container">
+	<div class="container" style="background-color: rgba(255, 255, 255, .15); backdrop-filter: blur(5px); height: 660px; width: 800px; position: fixed; top: 20%; left: 28%;">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
 				<!-- success message -->
 				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully registered
-						to our awesome app!</div>
+					<div class="alert alert-info">
+					You've successfully registered!</div>
 				</div>
 
-				<h1>Registration</h1>
+				<br><h1> Todo Registration</h1><br><br>
 
 				<form th:action="@{/registration}" method="post" th:object="${user}">
 					<div class="form-group">
@@ -62,12 +58,19 @@
 						<label class="control-label" for="password"> Password </label> <input
 							id="password" class="form-control" type="password"
 							th:field="*{password}" required autofocus="autofocus" />
-					</div>
+					</div><br><br><br>
 
 					<div class="form-group">
-						<button type="submit" class="btn btn-success">Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}">Login
-								here</a></span>
+					<div class="row">
+					<div class="col-sm-6">
+						<button type="submit" class="btn btn-success" style="width: 370px;">Register</button>
+						<br><br>
+					</div>
+					<div class="col-md-8" style="left: 19%;">
+						<h5> Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></h5>
+					</div>
+					</div>
 					</div>
 				</form>
 			</div>
